@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/base_scaffold.dart'; // Asegúrate de que esta clase esté correctamente implementada.
+import 'package:medistock/base_scaffold.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

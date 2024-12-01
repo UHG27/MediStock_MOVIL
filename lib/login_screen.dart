@@ -1,53 +1,67 @@
+
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medistock/home_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  LoginScreenState createState() => LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _usernameController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isAuthenticating = false; // Para mostrar estado de carga
+  bool _isAuthenticating = false;
 
-  // Simulación de autenticación
-  Future<bool> _authenticate(String username, String password) async {
-    await Future.delayed(const Duration(seconds: 1)); // Simula un delay
-    return username == "admin" && password == "1234"; // Usuario y contraseña válidos
-  }
+  Future<bool> _authenticate(String email, String password) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('usuarios')
+          .where('email', isEqualTo: email)
+          .where('password', isEqualTo: password)
+          .get();
 
-void _login() async {
-  if (_formKey.currentState!.validate()) {
-    setState(() {
-      _isAuthenticating = true; // Mostrar indicador de carga
-    });
-
-    // Simula autenticación
-    bool isValidUser = await _authenticate(
-      _usernameController.text,
-      _passwordController.text,
-    );
-
-    if (!mounted) return; // Verificar si el widget sigue montado
-
-    setState(() {
-      _isAuthenticating = false; // Ocultar indicador de carga
-    });
-
-    if (isValidUser) {
-      // Navegar a la ruta '/home'
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      // Mostrar error si no es válido
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Usuario o contraseña incorrectos')),
-      );
+      return querySnapshot.docs.isNotEmpty; // Devuelve true si encontró al usuario
+    } catch (e) {
+      print('Error al autenticar: $e');
+      return false;
     }
   }
-}
+
+  void _login() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isAuthenticating = true;
+      });
+
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+
+      bool isValidUser = await _authenticate(email, password);
+
+      if (!mounted) return;
+
+      setState(() {
+        _isAuthenticating = false;
+      });
+
+      if (isValidUser) {
+        // Navegar a la pantalla de inicio después de la autenticación exitosa
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Usuario o contraseña incorrectos')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +78,11 @@ void _login() async {
             children: [
               const SizedBox(height: 20),
               TextFormField(
-                controller: _usernameController,
-                decoration: const InputDecoration(labelText: 'Usuario'),
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'Correo electrónico'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor ingresa tu usuario';
+                    return 'Por favor ingresa tu correo';
                   }
                   return null;
                 },
@@ -81,20 +95,17 @@ void _login() async {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor ingresa tu contraseña';
-                  } else if (value.length < 4) {
-                    return 'La contraseña debe tener al menos 4 caracteres';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 20),
               _isAuthenticating
-                  ? const CircularProgressIndicator() // Indicador de carga
+                  ? const CircularProgressIndicator()
                   : ElevatedButton(
-                      onPressed: _login, // Llamamos al método _login
+                      onPressed: _login,
                       child: const Text('Iniciar sesión'),
                     ),
-              const SizedBox(height: 20),
             ],
           ),
         ),

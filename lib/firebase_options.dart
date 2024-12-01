@@ -42,7 +42,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyCgl0Ljg6gJpYxsORIYCuCNxbFyIOKw7qs',
-    appId: '1:23797681793:web:9873aca290b4fa7eec4780',
+    appId: '1:23797681793:web:5843ffee852ee31eec4780',
     messagingSenderId: '23797681793',
     projectId: 'medistockwm',
     authDomain: 'medistockwm.firebaseapp.com',
@@ -88,4 +88,5 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://medistockwm-default-rtdb.firebaseio.com',
     storageBucket: 'medistockwm.firebasestorage.app',
   );
+
 }
