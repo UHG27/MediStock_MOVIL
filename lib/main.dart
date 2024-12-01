@@ -35,7 +35,14 @@ class MyApp extends StatelessWidget {
       title: 'MediStock',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.light,
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.blueGrey,
+      ),
+      themeMode: ThemeMode.system,
+      home: const HomeScreen(),
       initialRoute: '/', // Cambia la ruta inicial
       routes: {
         '/': (context) => const LoginScreen(), // Pantalla de login
