@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medistock/base_scaffold.dart';
+import 'package:medistock/detail_screen.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,35 +15,51 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isSearching = false; // Controla si estamos en modo búsqueda
   final TextEditingController _searchController = TextEditingController();
 
-  // Lista predefinida de medicamentos
-  final List<Map<String, String>> _medicamentos = [
-    {'nombre': 'Paracetamol', 'descripcion': 'Analgésico y antipirético'},
-    {'nombre': 'Ibuprofeno', 'descripcion': 'Antiinflamatorio y analgésico'},
-    {'nombre': 'Amoxicilina', 'descripcion': 'Antibiótico'},
-    {'nombre': 'Omeprazol', 'descripcion': 'Inhibidor de la bomba de protones'},
-    {'nombre': 'Losartán', 'descripcion': 'Antihipertensivo'},
-    {'nombre': 'Metformina', 'descripcion': 'Antidiabético oral'},
-    {'nombre': 'Cetirizina', 'descripcion': 'Antihistamínico'},
-    {'nombre': 'Diclofenaco', 'descripcion': 'Analgésico y antiinflamatorio'},
-    {'nombre': 'Ranitidina', 'descripcion': 'Bloqueador de ácido estomacal'},
-  ];
-
-  List<Map<String, String>> _filteredMedicamentos = []; // Lista filtrada
+  // Lista para almacenar los productos desde Firestore
+  List<Map<String, dynamic>> _medicamentos = [];
+  List<Map<String, dynamic>> _filteredMedicamentos = []; // Lista filtrada
   bool _isLoading = true; // Controla si estamos cargando datos
 
   @override
   void initState() {
     super.initState();
-    _initializeMedicamentos(); // Inicializa los datos
+    _loadMedicamentos(); // Cargar los medicamentos desde Firestore
   }
 
-  void _initializeMedicamentos() {
-    setState(() {
-      _filteredMedicamentos = _medicamentos; // Inicializar lista filtrada
-      _isLoading = false; // Finaliza el estado de carga
-    });
+  // Cargar los medicamentos desde Firestore
+  void _loadMedicamentos() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('inventario_producto')
+          .get();
+
+      setState(() {
+        _medicamentos = snapshot.docs.map((doc) {
+          return {
+            'nombre': doc['nombre'],
+            'descripcion': doc['descripcion'],
+            'precio': doc['precio'],
+            'lote': doc['lote'],
+            'fecha_caducidad': doc['fecha_caducidad'],
+            'stock': doc['stock'],
+            'presentacion': doc['presentacion'],
+            'sustancia': doc['sustancia'],
+          };
+        }).toList();
+        _filteredMedicamentos = _medicamentos; // Inicializamos la lista filtrada
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error al cargar datos: $e'),
+      ));
+    }
   }
 
+  // Filtrar medicamentos por nombre
   void _filterMedicamentos(String query) {
     setState(() {
       if (query.isEmpty) {
@@ -104,6 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Crear la lista de medicamentos
   Widget _buildMedicamentosList() {
     return ListView.builder(
       padding: const EdgeInsets.all(8.0),
@@ -122,9 +142,13 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: const Icon(Icons.medical_services_outlined),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Seleccionaste: ${medicamento['nombre']}'),
+              // Navegar a la pantalla de detalles pasando los datos del medicamento
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen (
+                    medicamento: medicamento,
+                  ),
                 ),
               );
             },
