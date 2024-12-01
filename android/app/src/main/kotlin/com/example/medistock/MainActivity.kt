@@ -1,4 +1,4 @@
-package com.example.medistock
+package com.medistock.app
 
 import io.flutter.embedding.android.FlutterActivity
 
