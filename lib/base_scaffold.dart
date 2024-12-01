@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BaseScaffold extends StatefulWidget {
   final Widget body;
@@ -71,12 +72,12 @@ class BaseScaffoldState extends State<BaseScaffold> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 35),
-            label: 'Perfil',
+            icon: Icon(FontAwesomeIcons.briefcaseMedical, size: 35),
+            label: 'Medicamentos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications, size: 35),
-            label: 'Notificaciones',
+            icon: Icon(FontAwesomeIcons.clipboardList, size: 35),
+            label: 'Lista de ventas',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings, size: 35),
