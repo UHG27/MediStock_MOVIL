@@ -69,7 +69,10 @@ class _LoginScreenState extends State<LoginScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF4A708B), Color(0xFF6B8FA7)], // Azul más oscuro
+              colors: [
+                Color.fromARGB(255, 83, 74, 255), // Azul principal
+                Color.fromARGB(255, 120, 94, 255), // Azul secundario
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -89,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Icon(
                       Icons.local_pharmacy,
                       size: 60,
-                      color: Color(0xFF3C5773), // Azul más oscuro
+                      color: Color.fromARGB(255, 83, 74, 255), // Azul principal
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -98,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF3C5773), // Azul más oscuro
+                      color: Colors.white, // Texto blanco para contraste
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -107,15 +110,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: _emailController,
                     decoration: InputDecoration(
                       labelText: 'Correo electrónico',
-                      labelStyle: const TextStyle(color: Colors.black87),
-                      prefixIcon: const Icon(Icons.email, color: Colors.black54),
+                      labelStyle: const TextStyle(color: Colors.white),
+                      prefixIcon: const Icon(Icons.email, color: Colors.white70),
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: const Color(0xFFFFFFFF).withOpacity(0.3),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    style: const TextStyle(color: Colors.black87),
+                    style: const TextStyle(color: Colors.white),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor ingresa tu correo';
@@ -130,15 +133,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Contraseña',
-                      labelStyle: const TextStyle(color: Colors.black87),
-                      prefixIcon: const Icon(Icons.lock, color: Colors.black54),
+                      labelStyle: const TextStyle(color: Colors.white),
+                      prefixIcon: const Icon(Icons.lock, color: Colors.white70),
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: const Color(0xFFFFFFFF).withOpacity(0.3),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    style: const TextStyle(color: Colors.black87),
+                    style: const TextStyle(color: Colors.white),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor ingresa tu contraseña';
@@ -149,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 30),
                   // Login button
                   _isAuthenticating
-                      ? const CircularProgressIndicator(color: Color(0xFF3C5773))
+                      ? const CircularProgressIndicator(color: Colors.white)
                       : ElevatedButton(
                           onPressed: _login,
                           style: ElevatedButton.styleFrom(
@@ -158,7 +161,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            backgroundColor: const Color(0xFF3C5773), // Azul más oscuro
+                            backgroundColor:
+                                const Color.fromARGB(255, 83, 74, 255), // Azul principal
                           ),
                           child: const Text(
                             'Iniciar sesión',
