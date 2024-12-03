@@ -71,7 +71,7 @@ class BaseScaffoldState extends State<BaseScaffold> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.medical_information, size: 35),
+            icon: Icon(Icons.person, size: 35),
             label: 'Perfil',
           ),
           BottomNavigationBarItem(
