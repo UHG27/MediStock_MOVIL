@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isAuthenticating = false;
 
+  /// Método para autenticar usuario con Firestore
   Future<bool> _authenticate(String email, String password) async {
     try {
       final querySnapshot = await FirebaseFirestore.instance
@@ -30,10 +31,11 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  /// Método que controla el inicio de sesión
   void _login() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
-        _isAuthenticating = true;
+        _isAuthenticating = true; // Mostrar indicador de progreso
       });
 
       final email = _emailController.text.trim();
@@ -44,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
 
       setState(() {
-        _isAuthenticating = false;
+        _isAuthenticating = false; // Detener indicador de progreso
       });
 
       if (isValidUser) {

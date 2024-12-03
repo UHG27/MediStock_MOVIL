@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/', // Pantalla inicial
+      initialRoute: '/login', // Pantalla inicial
       routes: {
         '/login': (context) => const LoginScreen(), // Pantalla de inicio de sesión
         '/home': (context) => const HomeScreen(), // Pantalla principal
@@ -54,3 +54,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
