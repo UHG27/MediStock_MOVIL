@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:medistock/detail_screen.dart';
 import 'package:medistock/home_screen.dart';
 import 'package:medistock/login_screen.dart'; // Asegúrate de tener esta pantalla
+<<<<<<< HEAD
 import 'package:medistock/settings_screen.dart';
+=======
+
+import 'package:medistock/settings_screen.dart';
+import 'package:medistock/medical_screen.dart';
+>>>>>>> b9537bd0d632ea24e179e25f3edfa97f86f3089e
 import 'firebase_options.dart'; // Para inicializar Firebase
 // Asegúrate de tener esta pantalla
 
@@ -42,14 +48,18 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/login', // Pantalla inicial
       routes: {
+
         '/login': (context) => const LoginScreen(), // Pantalla de inicio de sesión
-        '/home': (context) => const HomeScreen(), // Pantalla principal
-        '/settings': (context) => const SettingsScreen(), // Pantalla de configuraciones
+        '/home': (context) => HomeScreen(), // Pantalla principal
+        '/settings': (context) => const SettingsScreen(), // Pantalla de configuracionesla de login
+        '/medical': (context) => const MedicalScreen(),
         '/detail': (context) {
           final medicamento = ModalRoute.of(context)!.settings.arguments
               as Map<String, dynamic>;
           return DetailScreen(medicamento: medicamento);
         },
+        // Pantalla principal después de login
+
       },
     );
   }
