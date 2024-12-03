@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:medistock/base_scaffold.dart';
 import 'package:medistock/detail_screen.dart';
 
 class MedicalScreen extends StatefulWidget {
@@ -82,14 +81,11 @@ class _MedicalScreenState extends State<MedicalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
-      title: _isSearching ? '' : 'Medicamentos',
-      actions: [
-        if (_isSearching)
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: TextField(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 83, 74, 255), // Cambia el color según el diseño
+        title: _isSearching
+            ? TextField(
                 controller: _searchController,
                 autofocus: true,
                 decoration: const InputDecoration(
@@ -97,34 +93,60 @@ class _MedicalScreenState extends State<MedicalScreen> {
                   border: InputBorder.none,
                 ),
                 onChanged: _filterMedicamentos,
+              )
+            : Row(
+                children: [
+                  ClipOval(
+                    child: SizedBox(
+                      height: 40, // Ajusta el tamaño del logo
+                      width: 40,
+                      child: Image.asset(
+                        'assets/images/genericos.png', // Ruta del logo
+                        fit: BoxFit.cover, // Ajusta la imagen para cubrir el espacio
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8), // Espaciado entre el logo y el texto
+                  const Text(
+                    'MediStock',
+                    style: TextStyle(fontSize: 20), // Estilo opcional del texto
+                  ),
+                ],
               ),
-            ),
+        actions: [
+          IconButton(
+            icon: Icon(_isSearching ? Icons.close : Icons.search),
+            onPressed: () {
+              setState(() {
+                if (_isSearching) {
+                  _isSearching = false;
+                  _searchController.clear();
+                  _filteredMedicamentos = _medicamentos;
+                } else {
+                  _isSearching = true;
+                }
+              });
+            },
           ),
-        IconButton(
-          icon: Icon(_isSearching ? Icons.close : Icons.search),
-          onPressed: () {
-            setState(() {
-              if (_isSearching) {
-                _isSearching = false;
-                _searchController.clear();
-                _filteredMedicamentos = _medicamentos;
-              } else {
-                _isSearching = true;
-              }
-            });
-          },
-        ),
-      ],
+        ],
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : _filteredMedicamentos.isEmpty
-              ? const Center(
-                  child: Text(
-                    'No se encontraron medicamentos.',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                )
-              : _buildMedicamentosList(),
+          : Column(
+              children: [
+                const SizedBox(height: 20),
+                Expanded(
+                  child: _filteredMedicamentos.isEmpty
+                      ? const Center(
+                          child: Text(
+                            'No se encontraron medicamentos.',
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                        )
+                      : _buildMedicamentosList(),
+                ),
+              ],
+            ),
     );
   }
 
