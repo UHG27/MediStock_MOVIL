@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Firestore
 import 'package:flutter/material.dart';
+import 'package:medistock/detail_screen.dart';
 import 'package:medistock/home_screen.dart';
 import 'package:medistock/login_screen.dart'; // Asegúrate de tener esta pantalla
+
 import 'package:medistock/settings_screen.dart';
+import 'package:medistock/medical_screen.dart';
 import 'firebase_options.dart'; // Para inicializar Firebase
- // Asegúrate de tener esta pantalla
+// Asegúrate de tener esta pantalla
 
 
 Future<void> main() async {
@@ -19,7 +22,8 @@ Future<void> main() async {
   // Verificar conexión a Firestore
   try {
     final snapshot = await FirebaseFirestore.instance.collection('test').get();
-    print('Firestore conectado: ${snapshot.docs.length} documentos encontrados');
+    print(
+        'Firestore conectado: ${snapshot.docs.length} documentos encontrados');
   } catch (e) {
     print('Error conectando a Firestore: $e');
   }
@@ -40,11 +44,19 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/login', // Pantalla inicial
       routes: {
+
         '/login': (context) => const LoginScreen(), // Pantalla de inicio de sesión
-        '/home': (context) => const HomeScreen(), // Pantalla principal
-        '/settings': (context) => const SettingsScreen(), // Pantalla de configuraciones
+        '/home': (context) => HomeScreen(), // Pantalla principal
+        '/settings': (context) => const SettingsScreen(), // Pantalla de configuracionesla de login
+        '/medical': (context) => const MedicalScreen(),
+        '/detail': (context) {
+          final medicamento = ModalRoute.of(context)!.settings.arguments
+              as Map<String, dynamic>;
+          return DetailScreen(medicamento: medicamento);
+        },
+        // Pantalla principal después de login
+
       },
     );
   }
 }
-

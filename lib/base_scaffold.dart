@@ -21,7 +21,7 @@ class BaseScaffoldState extends State<BaseScaffold> {
 
   final List<String> _routes = [
     '/home',
-    '/edit_profile',
+    '/medical',
     '/notifications',
     '/settings',
   ];
@@ -47,14 +47,14 @@ class BaseScaffoldState extends State<BaseScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('MediStock'),
         backgroundColor: Colors.transparent, // Lo dejamos transparente para el gradiente
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromARGB(255, 101, 166, 231), // Azul
-                Color.fromARGB(255, 101, 204, 204), // Verde agua
+                Color.fromARGB(255, 83, 74, 255), // Azul
+                Color.fromARGB(255, 120, 94, 255), // Verde agua
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -71,7 +71,7 @@ class BaseScaffoldState extends State<BaseScaffold> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 35),
+            icon: Icon(Icons.medical_services, size: 35),
             label: 'Perfil',
           ),
           BottomNavigationBarItem(
