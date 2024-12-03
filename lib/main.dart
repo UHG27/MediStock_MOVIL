@@ -4,22 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:medistock/detail_screen.dart';
 import 'package:medistock/home_screen.dart';
 import 'package:medistock/login_screen.dart'; // Asegúrate de tener esta pantalla
-
 import 'package:medistock/settings_screen.dart';
 import 'package:medistock/medical_screen.dart';
 import 'firebase_options.dart'; // Para inicializar Firebase
-// Asegúrate de tener esta pantalla
+import 'package:medistock/notifications_screen.dart';
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Inicializa Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Verificar conexión a Firestore
   try {
     final snapshot = await FirebaseFirestore.instance.collection('test').get();
     print(
@@ -55,7 +51,7 @@ class MyApp extends StatelessWidget {
           return DetailScreen(medicamento: medicamento);
         },
         // Pantalla principal después de login
-
+        '/notifications': (context) => const NotificationsScreen(),
       },
     );
   }
