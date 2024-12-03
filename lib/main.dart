@@ -4,13 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:medistock/detail_screen.dart';
 import 'package:medistock/home_screen.dart';
 import 'package:medistock/login_screen.dart'; // Asegúrate de tener esta pantalla
-<<<<<<< HEAD
-import 'package:medistock/settings_screen.dart';
-=======
 
 import 'package:medistock/settings_screen.dart';
 import 'package:medistock/medical_screen.dart';
->>>>>>> b9537bd0d632ea24e179e25f3edfa97f86f3089e
 import 'firebase_options.dart'; // Para inicializar Firebase
 // Asegúrate de tener esta pantalla
 
