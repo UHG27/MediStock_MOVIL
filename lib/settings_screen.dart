@@ -18,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Configuraciones'),
-        backgroundColor: Color.fromARGB(255, 83, 74, 255), // Azul
+        backgroundColor: const Color.fromARGB(255, 83, 74, 255), // Azul
         elevation: 0, // Elimina la sombra si lo prefieres
       ),
       body: ListView(

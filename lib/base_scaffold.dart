@@ -27,20 +27,15 @@ class BaseScaffoldState extends State<BaseScaffold> {
   ];
 
   void _onItemTapped(int index) {
-    // Si la ruta seleccionada es la misma que la actual, no hacer nada
-    if (ModalRoute.of(context)?.settings.name == _routes[index]) return;
-
-    // Cambiar al índice seleccionado
     setState(() {
       _selectedIndex = index;
     });
 
-    // Navegar a la ruta correspondiente, eliminando todas las pantallas previas
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      _routes[index],
-      (Route<dynamic> route) => false, // Elimina todas las pantallas anteriores
-    );
+    if (_selectedIndex == 0){
+      Navigator.pushReplacementNamed(context, '/home');
+    }else{
+      Navigator.pushReplacementNamed(context, _routes[index]);
+    }
   }
 
   @override
