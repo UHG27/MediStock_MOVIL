@@ -3,8 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Firestore
 import 'package:flutter/material.dart';
 import 'package:medistock/home_screen.dart';
 import 'package:medistock/login_screen.dart'; // Asegúrate de tener esta pantalla
+import 'package:medistock/settings_screen.dart';
 import 'firebase_options.dart'; // Para inicializar Firebase
  // Asegúrate de tener esta pantalla
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +30,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -36,12 +38,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/', // Cambia la ruta inicial
+      initialRoute: '/', // Pantalla inicial
       routes: {
-        '/': (context) => const LoginScreen(), // Pantalla de login
-        '/home': (context) => const HomeScreen(), // Pantalla principal después de login
+        '/login': (context) => const LoginScreen(), // Pantalla de inicio de sesión
+        '/home': (context) => const HomeScreen(), // Pantalla principal
+        '/settings': (context) => const SettingsScreen(), // Pantalla de configuraciones
       },
     );
   }
 }
-
