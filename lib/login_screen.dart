@@ -85,14 +85,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 60),
-                  // Logo
-                  const CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.local_pharmacy,
-                      size: 60,
-                      color: Color.fromARGB(255, 83, 74, 255), // Azul principal
+                  // Logo dentro de un círculo
+                  SizedBox(
+                    height: 120,
+                    width: 120,
+                    child: ClipOval(
+                      child: Image.asset(
+                        'assets/images/image.png',
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(
+                            Icons.error,
+                            size: 60,
+                            color: Colors.red,
+                          );
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -101,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white, // Texto blanco para contraste
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -162,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             backgroundColor:
-                                const Color.fromARGB(255, 83, 74, 255), // Azul principal
+                                const Color.fromARGB(255, 83, 74, 255),
                           ),
                           child: const Text(
                             'Iniciar sesión',
