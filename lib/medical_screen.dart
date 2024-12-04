@@ -35,7 +35,7 @@ class _MedicalScreenState extends State<MedicalScreen> {
           .collection('inventario_producto')
           .get();
 
-      if (!mounted) return; // Verificar si el widget sigue montado antes de setState
+      if (!mounted) return; // Verifica si el widget sigue montado antes de setState
 
       setState(() {
         _medicamentos = snapshot.docs.map((doc) {

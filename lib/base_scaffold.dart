@@ -22,34 +22,28 @@ class BaseScaffoldState extends State<BaseScaffold> {
   final List<String> _routes = [
     '/home',
     '/medical',
-    '/notifications',
     '/settings',
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (_selectedIndex == 0){
-      Navigator.pushReplacementNamed(context, '/home');
-    }else{
-      Navigator.pushReplacementNamed(context, _routes[index]);
-    }
+void _onItemTapped(int index) {
+  if (_selectedIndex != index) {
+    Navigator.pushNamed(context, _routes[index]);
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('MediStock'),
-        backgroundColor: Colors.transparent, // Lo dejamos transparente para el gradiente
+        backgroundColor: Colors.transparent, 
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromARGB(255, 83, 74, 255), // Azul
-                Color.fromARGB(255, 120, 94, 255), // Verde agua
+                Color.fromARGB(255, 83, 74, 255),
+                Color.fromARGB(255, 120, 94, 255), 
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -67,11 +61,7 @@ class BaseScaffoldState extends State<BaseScaffold> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.medical_services, size: 35),
-            label: 'Perfil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications, size: 35),
-            label: 'Notificaciones',
+            label: 'medical',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings, size: 35),

@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:medistock/base_scaffold.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   // Función para manejar el cierre de sesión
   void _signOut(BuildContext context) {
-    // Aquí puedes implementar la lógica de cierre de sesión (Firebase, shared_preferences, etc.)
-    // Ejemplo:
-    // await FirebaseAuth.instance.signOut();
-
-    // Redirigir a la pantalla de login después de cerrar sesión
     Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Configuraciones'),
-        backgroundColor: const Color.fromARGB(255, 83, 74, 255), // Azul
-        elevation: 0, // Elimina la sombra si lo prefieres
-      ),
+    return BaseScaffold(
+      title: 'Configuraciones', // Título de la pantalla
       body: ListView(
         children: [
           // Cerrar sesión
@@ -28,12 +20,11 @@ class SettingsScreen extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('Cerrar sesión'),
             onTap: () {
-              _signOut(context);  // Llama a la función para cerrar sesión
+              _signOut(context);
             },
           ),
           const Divider(),
 
-          // Política de privacidad
           ListTile(
             leading: const Icon(Icons.privacy_tip),
             title: const Text('Política de privacidad'),
@@ -41,12 +32,10 @@ class SettingsScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Redirigiendo a la política de privacidad...')),
               );
-              // Aquí puedes abrir un enlace a la política de privacidad si lo deseas
             },
           ),
           const Divider(),
 
-          // Información del sistema
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text('Información del sistema'),
