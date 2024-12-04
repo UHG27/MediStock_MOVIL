@@ -9,7 +9,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar( 
         backgroundColor: Color.fromARGB(255, 83, 74, 255), 
-        title: const Text('Bienvenido a MediStock'),
+        title: const Text('Bienvenido a MediStock',
+        style: TextStyle(color: Colors.white)
+      ),
       ),
 
       body: Container(

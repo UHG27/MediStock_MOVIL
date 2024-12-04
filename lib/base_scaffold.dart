@@ -4,12 +4,17 @@ class BaseScaffold extends StatefulWidget {
   final Widget body;
   final String title;
   final List<Widget>? actions;
+  final int initialIndex;
+  final bool isSearching;
+  
 
   const BaseScaffold({
     super.key,
     required this.body,
     required this.title,
     this.actions,
+    this.initialIndex = 0,
+    this.isSearching = false,
   });
 
   @override
@@ -17,13 +22,19 @@ class BaseScaffold extends StatefulWidget {
 }
 
 class BaseScaffoldState extends State<BaseScaffold> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
   final List<String> _routes = [
     '/home',
     '/medical',
     '/settings',
   ];
+
+@override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
 void _onItemTapped(int index) {
   if (_selectedIndex != index) {
@@ -32,11 +43,17 @@ void _onItemTapped(int index) {
 }
 
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MediStock'),
+        title: const Text('MediStock', 
+        style: TextStyle(color: Colors.white),
+        ),
+        automaticallyImplyLeading: !widget.isSearching,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         backgroundColor: Colors.transparent, 
         flexibleSpace: Container(
           decoration: const BoxDecoration(

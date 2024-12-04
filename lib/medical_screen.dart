@@ -96,6 +96,9 @@ class _MedicalScreenState extends State<MedicalScreen> {
                   hintText: 'Buscar medicamentos...',
                   border: InputBorder.none,
                 ),
+                style: const TextStyle(
+                  color: Colors.white
+                ),
                 onChanged: _filterMedicamentos,
               ),
             ),
@@ -125,6 +128,8 @@ class _MedicalScreenState extends State<MedicalScreen> {
                   ),
                 )
               : _buildMedicamentosList(),
+      initialIndex: 1,
+      isSearching: _isSearching,
     );
   }
 
