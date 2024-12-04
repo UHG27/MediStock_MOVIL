@@ -43,24 +43,37 @@ void _onItemTapped(int index) {
 }
 
 
-   @override
+   
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MediStock', 
-        style: TextStyle(color: Colors.white),
+        title: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                'assets/images/genericos.jpg', // Ruta de tu logo
+                height: 30, // Tamaño del logo
+              ),
+            ),
+            Text(
+              widget.title,
+              style: const TextStyle(color: Colors.white),
+            ),
+          ],
         ),
         automaticallyImplyLeading: !widget.isSearching,
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        backgroundColor: Colors.transparent, 
+        backgroundColor: Colors.transparent,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 Color.fromARGB(255, 83, 74, 255),
-                Color.fromARGB(255, 120, 94, 255), 
+                Color.fromARGB(255, 120, 94, 255),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,

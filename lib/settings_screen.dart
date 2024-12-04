@@ -13,6 +13,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       title: 'Configuraciones', // Título de la pantalla
+      actions: const [],
       body: ListView(
         children: [
           // Cerrar sesión
@@ -24,7 +25,6 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
           const Divider(),
-
           ListTile(
             leading: const Icon(Icons.privacy_tip),
             title: const Text('Política de privacidad'),
@@ -35,7 +35,6 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
           const Divider(),
-
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text('Información del sistema'),

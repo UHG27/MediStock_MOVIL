@@ -15,7 +15,8 @@ class DetailScreen extends StatelessWidget {
         : 'No disponible';
 
     return BaseScaffold(
-      title: medicamento['nombre']!,  // Usamos el nombre del medicamento como título
+      title: medicamento['nombre']!,
+      actions: const [],  // Usamos el nombre del medicamento como título
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -37,7 +38,7 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailRow(String title, String? value) {
+   Widget _buildDetailRow(String title, String? value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
